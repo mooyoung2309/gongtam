@@ -1,0 +1,14 @@
+
+.goal_btn {
+  float: left;
+  font-size: 10px;
+  width: 230px;
+  height: 60px;
+  border: solid 2px grey;
+  border-radius: 50px;
+}
+.goal_txt {
+  float: left;
+  font-size: 50px;
+  padding-left: 10px
+}
