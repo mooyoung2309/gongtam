@@ -1,9 +1,10 @@
 var button = document.getElementById('button');
+var clear_button = document.getElementById('clear');
 var input = document.getElementById('input');
 var list = document.getElementById('list');
 var cnt = 1;
 button.addEventListener('click', clickButton);
-
+clear_button.addEventListener('click', clear);
 function clickButton() {
   var temp = document.createElement('li');
   temp.setAttribute("class", "list-group-item");
@@ -26,4 +27,8 @@ function remove(cnt) {
   //window.alert(cnt);
   var li = document.getElementById('li'+cnt);
   list.removeChild(li);
+}
+function clear(){
+  var li = document.getElementById('li'+cnt);
+  location.href="checkingpage.html?" + li;
 }
