@@ -10,8 +10,8 @@ function clickButton() {
   temp.setAttribute("class", "list-group-item");
   temp.setAttribute("id", "li"+cnt);
   temp.innerHTML = input.value;
-  temp.innerHTML += "<button style='float: right;' class='btn btn-outline-secondary' type='button' onclick='remove("+cnt+")'>삭제</button>";
-  temp.innerHTML += "<button style='float: right;' class='btn btn-outline-secondary' type='button' onclick='rename("+cnt+")'>수정</button>";
+  temp.innerHTML += "<button style='float: right;' type='button' onclick='remove("+cnt+")'>삭제</button>";
+  temp.innerHTML += "<button style='float: right;' type='button' onclick='rename("+cnt+")'>수정</button>";
   list.appendChild(temp);
   cnt++;
 }
@@ -29,5 +29,5 @@ function remove(cnt) {
   list.removeChild(li);
 }
 function clear(){
-  location.href="www.naver.com?" + list;
+  location.href="checking_page.html?" + list;
 }
