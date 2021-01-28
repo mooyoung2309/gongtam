@@ -29,6 +29,5 @@ function remove(cnt) {
   list.removeChild(li);
 }
 function clear(){
-  var li = document.getElementById('li'+cnt);
-  location.href="checkingpage.html?" + li;
+  location.href="www.naver.com?" + list;
 }
