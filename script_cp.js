@@ -1,3 +1,40 @@
+let Item = class {
+  time = 0;
+  onclick = true;
+  constructor(li,btn,timer,list,idx) {
+    this.list = list;
+    this.idx = idx;
+    this.li = li;
+    this.btn = btn;
+    this.timer = timer;
+    console.log(this.idx)
+    //btn과 timer을 담을 li생
+    li = document.createElement('li');
+    li.setAttribute("class", "list-group-item");
+    li.setAttribute("id","li"+idx);
+    //btn생성
+    btn = document.createElement('button');
+    btn.setAttribute("class", "btn-group-item");
+    btn.setAttribute("id", "btn"+idx);
+    btn.addEventListener('click',this.clickButton);
+    //timer생성
+    timer = document.createElement('span');
+    timer.setAttribute("class", "timer-group-item");
+    timer.setAttribute("id", "timer"+idx);
+    timer.innerHTML = "00:00:00"
+    //부모 연결
+    li.appendChild(btn);
+    li.appendChild(timer);
+    list.appendChild(li);
+  }
+  clickButton() {
+    if(onclick) {
+
+    }
+  }
+
+}
+
 var button = document.getElementsByClassName('goal_btn')[0];
 var list = document.getElementById('list')
 var bool_onclick = [];
@@ -7,11 +44,17 @@ var btn = [];
 var timer = [];
 var timerStart = [];
 //button.addEventListener('click', clickButton);
-__init__(10)
-btn[0].addEventListener('click',clickButton());
+//__init__(10)
+
+var tmp_li;
+var tmp_btn;
+var tmp_timer;
+
+var items = new Item(tmp_li,tmp_btn,tmp_timer,list,0)
+
 // for(var i=0; i<10; i++) {
 //   (function(m) {
-//     btn[m].addEventListener('click',clickButton(m));
+//     btn[m].addEventListener('click',clickButtonTest,false);
 //   })(i);
 //
 //   time[i] = 0;
@@ -38,6 +81,12 @@ function __init__(num) {
 
 
   }
+}
+
+function clickButtonTest() {
+  i = 0
+  i++;
+  console.log(i);
 }
 
 function clickButton() {
