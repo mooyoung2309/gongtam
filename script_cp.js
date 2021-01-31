@@ -1,114 +1,84 @@
 var button = document.getElementsByClassName('goal_btn')[0];
 var list = document.getElementById('list')
-var onclick = [];
-var time = [];
+var item = {
+  li : li = document.createElement('li'),
+  btn : btn = document.createElement('button'),
+  timer : timer = document.createElement('span'),
+  time : 0,
+  idx : 0,
+  onclick : true,
+  init_item : function() {
+    this.li.setAttribute("class", "list-group-item");
+    this.li.setAttribute("id","li"+this.idx);
+
+    this.btn.setAttribute("class", "btn-group-item");
+    this.btn.setAttribute("id", "btn"+this.idx);
+
+    this.timer.setAttribute("class", "timer-group-item");
+    this.timer.setAttribute("id", "timer"+this.idx);
+    this.timer.innerHTML = "00:00:00"
+
+    this.li.appendChild(this.btn);
+    this.li.appendChild(this.timer);
+    list.appendChild(this.li);
+  }
+}
 var items = [];
-var btn = [];
-var timer = [];
-var timerStart = [];
-//button.addEventListener('click', clickButton);
-//__init__(10)
+var numTest = 10
 
-var tmp_li;
-var tmp_btn;
-var tmp_timer;
+//__init__();
 
-__init__(10)
+var item01 = cloneObject(item);
 
-function __init__(num) {
-  for(var i=0; i<num; i++) {
-    var li, btn, timer, idx;
-    idx = i;
-    li = document.createElement('li');
-    li.setAttribute("class", "list-group-item");
-    li.setAttribute("id","li"+i);
-    //btn생성
-    btn = document.createElement('button');
-    btn.setAttribute("class", "btn-group-item");
-    btn.setAttribute("id", "btn"+i);
-    btn.addEventListener('click',function() {clickButton(idx)});
-    console.log(i);
-    //timer생성
-    timer = document.createElement('span');
-    timer.setAttribute("class", "timer-group-item");
-    timer.setAttribute("id", "timer"+i);
-    timer.innerHTML = "00:00:00"
-    //부모 연결
-    li.appendChild(btn);
-    li.appendChild(timer);
-    list.appendChild(li);
 
-    items[i] = li;
-    btn[i] = btn;
-    timer[i] = timer;
-    time[i] = 0;
+function __init__() {
+  for(var i=0; i<1; i++) {
+    items[i] = cloneObject(item);
+    items[i].idx = i;
+    items[i].init_item();
+    console.log(items[i]);
+    items[i].btn.addEventListener('click', function() {clickButton(items[i])});
   }
   console.log(items);
-  console.log(time);
 }
 
-function clickButtonTest() {
-  console.log(this.time);
-}
-
-function clickButton(i) {
-  console.log(i)
-  if (onclick[i]==null || onclick[i]==true) {
+function clickButton(self) {
+  if (self.onclick) {
     //1초 마다 반복
     timerStart = setInterval(function() {
-      time[i]++;
-      hour = addZero(parseInt(time[i]/3600));
-      min = addZero(parseInt((time[i]%3600)/60));
-      sec = addZero(parseInt(time[i]%60));
-      timer[i].innerHTML = hour+":"+min+":"+sec;
-      console.log(time[i])
+      self.time++;
+      hour = addZero(parseInt(self.time/3600));
+      min = addZero(parseInt((self.time%3600)/60));
+      sec = addZero(parseInt(self.time%60));
+      self.timer.innerHTML = hour+":"+min+":"+sec;
     },1000);
 
-    btn[i].style.background = "#B291EB";
-    //items[i].getElementById('btn'+i).innerHTML = "시작됨"
-    onclick[i] = false;
+    self.btn.style.background = "#B291EB";
+    self.btn.innerHTML = "시작됨"
+    self.onclick = false;
   } else {
     console.log("중지")
     if(timerStart) {
       //정지
       clearInterval(timerStart);
-      btn[i].innerHTML = "정지됨"
-      btn[i].style.background = "#ff6666";
-      onclick[i] = true;
+      self.btn.innerHTML = "정지됨"
+      self.btn.style.background = "#ff6666";
+      self.onclick = true;
     }
   }
 }
 
-
-
-
-// function clickButton() {
-//   if (bool_onclick[i] == null) {
-//     //1초 마다 반복
-//     timerStart[i] = setInterval(function() {
-//       time[i]++;
-//       hour = addZero(parseInt(time[i]/3600));
-//       min = addZero(parseInt((time[i]%3600)/60));
-//       sec = addZero(parseInt(time[i]%60));
-//       timer[i].innerHTML = hour+":"+min+":"+sec;
-//       console.log("체크")
-//     },1000);
-//
-//     btn[i].style.background = "#B291EB";
-//     btn[i].innerHTML = "시작됨"
-//     bool_onclick[i] = true;
-//   } else {
-//     console.log("중지")
-//     if(timerStart[i]) {
-//       //정지
-//       clearInterval(timerStart[i]);
-//       btn[i].innerHTML = "정지됨"
-//       btn[i].style.background = "#ff6666";
-//       bool_onclick[i] = false;
-//     }
-//   }
-// }
-
 function addZero(num) {
   return (num < 10 ? '0'+num : ''+num)
+}
+
+function cloneObject(obj) {
+    var clone = {};
+    for(var i in obj) {
+        if(typeof(obj[i])=="object" && obj[i] != null)
+            clone[i] = cloneObject(obj[i]);
+        else
+            clone[i] = obj[i];
+    }
+    return clone;
 }
